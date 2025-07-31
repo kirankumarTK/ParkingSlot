@@ -20,5 +20,5 @@ Booking Confirmation
 Optional Admin Controls
 
 
-<img width="1344" height="2992" alt="Screenshot_1753848396" src="https://github.com/user-attachments/assets/3f9a4a51-2d50-4b78-8031-56d995cea6bb" />
-<img width="1344" height="2992" alt="Screenshot_1753848409" src="https://github.com/user-attachments/assets/f3057508-9ff7-43ee-9e75-d676d0813a80" />
+<img width="840" height="1400" alt="Screenshot_1753848396" src="https://github.com/user-attachments/assets/3f9a4a51-2d50-4b78-8031-56d995cea6bb" />
+<img width="840" height="1400" alt="Screenshot_1753848409" src="https://github.com/user-attachments/assets/f3057508-9ff7-43ee-9e75-d676d0813a80" />
