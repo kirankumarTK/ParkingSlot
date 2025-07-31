@@ -3,12 +3,15 @@ package com.example.parkingslot.modules.loginFlow
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 /*Shared view model for login & registration flow inorder to validate fields*/
 
 @HiltViewModel
 class ValidateViewModel @Inject constructor() : ViewModel() {
+
+    internal val isLoadingStateFlow = MutableStateFlow<Boolean>(false)
 
     internal fun validate(input: String, validator: (String) -> Boolean, errorMsg: String): String {
         return if (validator(input)) "" else errorMsg

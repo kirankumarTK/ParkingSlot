@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.parkingslot.modules.loginFlow.ValidateViewModel
-import com.example.parkingslot.utils.EncryptionUtils
 import com.example.parkingslot.utils.LoggerUtils
 import com.example.parkingslot.utils.NetworkUtils
 import com.google.firebase.auth.FirebaseAuth
@@ -65,15 +64,17 @@ class RegistrationViewmodel @Inject constructor(
             "Password not matched"
         )
         if (emailErrorStateFlow.value.isEmpty() && blockErrorStateFlow.value.isEmpty() && flatErrorStateFlow.value.isEmpty() && passwordErrorStateFlow.value.isEmpty() && conformErrorPasswordStateFlow.value.isEmpty()) {
-            register(navController)
+            register(navController, validateViewModel)
         }
 
     }
 
     /* using firebase auth to create user
     * on further investigation we should not encrypt password while firebase auth*/
-    private fun register(navController: NavHostController) {
+    private fun register(navController: NavHostController, validateViewModel: ValidateViewModel) {
         if (networkUtils.isNetworkAvailable()) {
+
+            validateViewModel.isLoadingStateFlow.value = true
 
             firebaseAuth.createUserWithEmailAndPassword(
                 emailStateFlow.value, passwordStateFlow.value
@@ -89,6 +90,7 @@ class RegistrationViewmodel @Inject constructor(
                         )
                         firestore.collection("users").document(userId).set(userMap)
                             .addOnSuccessListener {
+                                validateViewModel.isLoadingStateFlow.value = false
                                 viewModelScope.launch {
                                     toastSharedFlow.emit("Registration successful.")
                                 }
@@ -98,18 +100,22 @@ class RegistrationViewmodel @Inject constructor(
                                     }
                                 }
                             }.addOnFailureListener {
+                                validateViewModel.isLoadingStateFlow.value = false
                                 loggerUtils.error("Registration", it.message.toString())
                             }
                     } else {
+                        validateViewModel.isLoadingStateFlow.value = false
                         // something went wrong during firebase auth
                     }
                 } else {
+                    validateViewModel.isLoadingStateFlow.value = false
                     viewModelScope.launch {
                         toastSharedFlow.emit(it.exception?.message.toString())
                     }
                 }
             }
         } else {
+            validateViewModel.isLoadingStateFlow.value = false
             // show popup to connect internet
         }
     }
