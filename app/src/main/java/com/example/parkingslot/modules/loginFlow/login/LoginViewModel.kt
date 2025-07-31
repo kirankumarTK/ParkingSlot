@@ -47,14 +47,17 @@ class LoginViewModel @Inject constructor(
                 passwordStateFlow.value, validateViewModel.validatePwd, "Invalid password"
             )
             if (passwordErrorStateFlow.value.isEmpty()) {
-                loginFlow(navController)
+                loginFlow(navController, validateViewModel)
             }
         }
     }
 
     /* check user available in firestore or not and move to nxt screen */
-    private fun loginFlow(navController: NavHostController) {
+    private fun loginFlow(navController: NavHostController, validateViewModel: ValidateViewModel) {
         if (networkUtils.isNetworkAvailable()) {
+
+            validateViewModel.isLoadingStateFlow.value = true
+
             if (encryptKey.isEmpty()) encryptKey = encryptionUtils.provideEncryptKey()
 
             firebaseAuth.signInWithEmailAndPassword(emailStateFlow.value, passwordStateFlow.value)
@@ -68,20 +71,23 @@ class LoginViewModel @Inject constructor(
                                     DOCUMENT_ID, firebaseAuth.currentUser?.uid
                                 )
                             }
-
+                            validateViewModel.isLoadingStateFlow.value = false
                             // move to nxt module
                         } else {
+                            validateViewModel.isLoadingStateFlow.value = false
                             loggerUtils.error(
                                 "Login", "Something went wrong! Encryption key missing"
                             )
                         }
 
                     } else {
+                        validateViewModel.isLoadingStateFlow.value = false
                         loggerUtils.error("Login", it.exception?.message.toString())
                     }
                 }
 
         } else {
+            validateViewModel.isLoadingStateFlow.value = false
             // need to show toast or popup dialog
         }
     }
