@@ -18,7 +18,6 @@ import javax.inject.Inject
 @HiltViewModel
 class RegistrationViewmodel @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val encryptionUtils: EncryptionUtils,
     private val networkUtils: NetworkUtils,
     private val firestore: FirebaseFirestore,
     private val loggerUtils: LoggerUtils
@@ -71,51 +70,44 @@ class RegistrationViewmodel @Inject constructor(
 
     }
 
-    /* using firebase auth to create user */
+    /* using firebase auth to create user
+    * on further investigation we should not encrypt password while firebase auth*/
     private fun register(navController: NavHostController) {
         if (networkUtils.isNetworkAvailable()) {
-            if (encryptionUtils.provideEncryptKey().isNotEmpty()) {
-                val encryptedPassword = encryptionUtils.encrypt(
-                    passwordStateFlow.value, encryptionUtils.provideEncryptKey()
-                )
 
-                firebaseAuth.createUserWithEmailAndPassword(
-                    emailStateFlow.value, encryptedPassword
-                ).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val userId = firebaseAuth.currentUser?.uid
-                        if (userId != null) {
-                            val userMap = hashMapOf(
-                                "email" to emailStateFlow.value,
-                                "block" to blockStateFlow.value,
-                                "flat" to flatStateFlow.value,
-                                "phone" to phoneStateFlow.value,
-                                "password" to encryptedPassword
-                            )
-                            firestore.collection("users").document(userId).set(userMap)
-                                .addOnSuccessListener {
-                                    viewModelScope.launch {
-                                        toastSharedFlow.emit("Registration successful.")
-                                    }
-                                    navController.navigate("login") {
-                                        popUpTo("register") {
-                                            inclusive = true
-                                        }
-                                    }
-                                }.addOnFailureListener {
-                                    loggerUtils.error("Registration", it.message.toString())
+            firebaseAuth.createUserWithEmailAndPassword(
+                emailStateFlow.value, passwordStateFlow.value
+            ).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val userId = firebaseAuth.currentUser?.uid
+                    if (userId != null) {
+                        val userMap = hashMapOf(
+                            "email" to emailStateFlow.value,
+                            "block" to blockStateFlow.value,
+                            "flat" to flatStateFlow.value,
+                            "phone" to phoneStateFlow.value
+                        )
+                        firestore.collection("users").document(userId).set(userMap)
+                            .addOnSuccessListener {
+                                viewModelScope.launch {
+                                    toastSharedFlow.emit("Registration successful.")
                                 }
-                        } else {
-                            // something went wrong during firebase auth
-                        }
+                                navController.navigate("login") {
+                                    popUpTo("register") {
+                                        inclusive = true
+                                    }
+                                }
+                            }.addOnFailureListener {
+                                loggerUtils.error("Registration", it.message.toString())
+                            }
                     } else {
-                        viewModelScope.launch {
-                            toastSharedFlow.emit(it.exception?.message.toString())
-                        }
+                        // something went wrong during firebase auth
+                    }
+                } else {
+                    viewModelScope.launch {
+                        toastSharedFlow.emit(it.exception?.message.toString())
                     }
                 }
-            } else {
-                // show popup for error
             }
         } else {
             // show popup to connect internet

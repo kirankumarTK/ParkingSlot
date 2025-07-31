@@ -19,6 +19,8 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    internal const val DOCUMENT_ID = "document_id"
+
     @Provides
     @Singleton
     internal fun provideFireStore(): FirebaseFirestore {

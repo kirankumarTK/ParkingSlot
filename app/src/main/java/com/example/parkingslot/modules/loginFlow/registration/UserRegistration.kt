@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -36,7 +37,9 @@ import com.example.parkingslot.ui.component.PasswordEditTextField
 
 @Composable
 internal fun UserRegistration(
-    navController: NavHostController, validateViewModel: ValidateViewModel
+    navController: NavHostController,
+    validateViewModel: ValidateViewModel,
+    innerPadding: PaddingValues
 ) {
 
     val registrationViewmodel: RegistrationViewmodel = hiltViewModel()
@@ -63,6 +66,7 @@ internal fun UserRegistration(
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
+            .padding(innerPadding)
             .fillMaxSize()
             .background(AppBackground())
     ) {
@@ -77,7 +81,7 @@ internal fun UserRegistration(
                 modifier = Modifier
                     .padding(15.dp)
                     .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(10.dp),
+                verticalArrangement = Arrangement.spacedBy(15.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 

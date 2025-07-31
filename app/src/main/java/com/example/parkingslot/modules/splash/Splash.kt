@@ -52,7 +52,7 @@ class Splash : ComponentActivity() {
 
         LaunchedEffect(true) {
             scale.animateTo(
-                1f, animationSpec = tween(1000, easing = FastOutSlowInEasing)
+                1f, animationSpec = tween(500, easing = FastOutSlowInEasing)
             )
             delay(500) // Total 1.5s
             onFinished()

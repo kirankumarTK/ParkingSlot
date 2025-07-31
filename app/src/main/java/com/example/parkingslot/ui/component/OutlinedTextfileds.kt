@@ -47,7 +47,7 @@ internal fun DefaultEditTextField(
         textStyle = MaterialTheme.typography.labelMedium,
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 30.dp, max = 80.dp)
+            .heightIn(min = 25.dp, max = 80.dp)
             .wrapContentHeight(),
         label = {
             Text(

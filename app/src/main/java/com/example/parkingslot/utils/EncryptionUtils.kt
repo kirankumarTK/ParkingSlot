@@ -14,7 +14,8 @@ import javax.inject.Inject
 class EncryptionUtils @Inject constructor(
     private val remoteConfig: FirebaseRemoteConfig,
     private val networkUtils: NetworkUtils,
-    private val encryptPreference: SharedPreferences
+    private val encryptPreference: SharedPreferences,
+    private val loggerUtils: LoggerUtils
 ) {
 
     val ivSize = 16
@@ -62,12 +63,13 @@ class EncryptionUtils @Inject constructor(
                             "encrypt_key", remoteConfig.getString("encryption_key")
                         )
                     }
-                    encryptKey =  encryptPreference.getString("encrypt_key", "").toString()
+                    encryptKey = encryptPreference.getString("encrypt_key", "").toString()
                 } else {
 
                 }
             }
         }
+        loggerUtils.info("Encrypt", encryptKey)
         return encryptKey
     }
 }

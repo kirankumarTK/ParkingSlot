@@ -32,7 +32,7 @@ fun AppNavigation(
 
         }
         composable("registration") {
-            UserRegistration(navController, sharedLoginViewModel)
+            UserRegistration(navController, sharedLoginViewModel,innerPadding)
         }
 
     }

@@ -1,13 +1,15 @@
 package com.example.parkingslot.modules.loginFlow.login
 
+import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
+import com.example.parkingslot.AppModule.DOCUMENT_ID
 import com.example.parkingslot.modules.loginFlow.ValidateViewModel
 import com.example.parkingslot.utils.EncryptionUtils
 import com.example.parkingslot.utils.LoggerUtils
 import com.example.parkingslot.utils.NetworkUtils
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
@@ -18,7 +20,8 @@ class LoginViewModel @Inject constructor(
     private val networkUtils: NetworkUtils,
     private val loggerUtils: LoggerUtils,
     private val encryptionUtils: EncryptionUtils,
-    private val firebaseAuth: FirebaseAuth
+    private val firebaseAuth: FirebaseAuth,
+    private val appPreference: SharedPreferences
 ) : ViewModel() {
     internal val emailStateFlow = MutableStateFlow<String>("")
     internal val passwordStateFlow = MutableStateFlow<String>("")
@@ -52,27 +55,32 @@ class LoginViewModel @Inject constructor(
     /* check user available in firestore or not and move to nxt screen */
     private fun loginFlow(navController: NavHostController) {
         if (networkUtils.isNetworkAvailable()) {
-            if (encryptKey.isEmpty()) {
-                encryptKey = encryptionUtils.provideEncryptKey()
-            }
-            if (encryptKey.isNotEmpty()) {
-                // now we are encrypting pswd and then check with firestore
-                val encryptPassword = encryptionUtils.encrypt(passwordStateFlow.value, encryptKey)
-                loggerUtils.info("Login", encryptPassword)
-                loggerUtils.info("Login",encryptionUtils.decrypt(encryptPassword, encryptKey))
+            if (encryptKey.isEmpty()) encryptKey = encryptionUtils.provideEncryptKey()
 
-                firebaseAuth.signInWithEmailAndPassword(emailStateFlow.value, encryptPassword)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            loggerUtils.info("Login", "Login successful")
+            firebaseAuth.signInWithEmailAndPassword(emailStateFlow.value, passwordStateFlow.value)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        loggerUtils.info("Login", "Login successful")
+                        //saving uid from firebase auth to access firestore
+                        if (encryptKey.isNotEmpty() && firebaseAuth.currentUser != null && firebaseAuth.currentUser?.uid?.isNotEmpty() == true) {
+                            appPreference.edit {
+                                putString(
+                                    DOCUMENT_ID, firebaseAuth.currentUser?.uid
+                                )
+                            }
+
                             // move to nxt module
                         } else {
-                            loggerUtils.error("Login", it.exception?.message.toString())
+                            loggerUtils.error(
+                                "Login", "Something went wrong! Encryption key missing"
+                            )
                         }
+
+                    } else {
+                        loggerUtils.error("Login", it.exception?.message.toString())
                     }
-            } else {
-                // need to show toast or popup dialog
-            }
+                }
+
         } else {
             // need to show toast or popup dialog
         }
