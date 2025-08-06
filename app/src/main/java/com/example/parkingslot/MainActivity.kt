@@ -1,5 +1,6 @@
-package com.example.parkingslot.modules.loginFlow
+package com.example.parkingslot
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -28,11 +29,13 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.parkingslot.R
+import com.example.parkingslot.modules.app_flow.DashboardActivity
+import com.example.parkingslot.modules.loginFlow.ValidateViewModel
 import com.example.parkingslot.ui.component.AppNavigation
 import com.example.parkingslot.ui.component.AppToolBar
 import com.example.parkingslot.ui.theme.ParkingSlotTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.collections.get
 
 @AndroidEntryPoint
 class LoginMainActivity : ComponentActivity() {
@@ -53,6 +56,16 @@ class LoginMainActivity : ComponentActivity() {
                 val title = routeTitleMap[currentRoute] ?: stringResource(R.string.app_name)
                 val sharedLoginViewModel: ValidateViewModel = hiltViewModel()
                 val loading = sharedLoginViewModel.isLoadingStateFlow.collectAsState()
+
+                // redirecting to dashboard
+                sharedLoginViewModel.moveToDashboardLiveData.observe(this) { it ->
+                    if (it) {
+                        startActivity(Intent(this, DashboardActivity::class.java))
+                        finish()
+                        sharedLoginViewModel.moveToDashboardLiveData.value = false
+                    }
+                }
+
                 Scaffold(
                     floatingActionButton = {},
                     modifier = Modifier.Companion.fillMaxSize(),
@@ -97,7 +110,7 @@ class LoginMainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-fun LoadingOverlay(isLoading: Boolean = true) {
+private fun LoadingOverlay(isLoading: Boolean = true) {
     if (isLoading) {
         Box(
             modifier = Modifier

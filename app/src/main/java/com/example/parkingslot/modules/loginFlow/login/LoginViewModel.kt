@@ -63,7 +63,7 @@ class LoginViewModel @Inject constructor(
             firebaseAuth.signInWithEmailAndPassword(emailStateFlow.value, passwordStateFlow.value)
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-                        loggerUtils.info("Login", "Login successful")
+                        loggerUtils.info(msg = "Login successful")
                         //saving uid from firebase auth to access firestore
                         if (encryptKey.isNotEmpty() && firebaseAuth.currentUser != null && firebaseAuth.currentUser?.uid?.isNotEmpty() == true) {
                             appPreference.edit {
@@ -73,6 +73,7 @@ class LoginViewModel @Inject constructor(
                             }
                             validateViewModel.isLoadingStateFlow.value = false
                             // move to nxt module
+                            validateViewModel.moveToDashboardLiveData.value = true
                         } else {
                             validateViewModel.isLoadingStateFlow.value = false
                             loggerUtils.error(
@@ -96,6 +97,16 @@ class LoginViewModel @Inject constructor(
         navController.navigate("registration") {
             popUpTo("login") {
                 inclusive = true
+            }
+        }
+    }
+
+    fun checkUserAlreadyLoggedIn(validateViewModel: ValidateViewModel) {
+        appPreference.getString(DOCUMENT_ID, "").let {
+            var documentID = it
+            if (documentID != null && documentID.isNotEmpty()) {
+                // move to nxt module
+                validateViewModel.moveToDashboardLiveData.value = true
             }
         }
     }

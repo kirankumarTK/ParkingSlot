@@ -6,18 +6,15 @@ import javax.inject.Inject
 
 class LoggerUtils @Inject constructor() {
 
-    fun debug(tag: String, msg: String) {
-        if (BuildConfig.DEBUG)
-            Log.d(tag, msg)
+    fun debug(tag: String = "PARKING_SLOT", msg: String) {
+        if (BuildConfig.DEBUG) Log.d(tag, msg)
     }
 
-    fun error(tag: String, msg: String) {
-        if (BuildConfig.DEBUG)
-            Log.e(tag, msg)
+    fun error(tag: String = "PARKING_SLOT", msg: String) {
+        if (BuildConfig.DEBUG) Log.e(tag, msg)
     }
 
-    fun info(tag: String, msg: String) {
-        if (BuildConfig.DEBUG)
-            Log.i(tag, msg)
+    fun info(tag: String = "PARKING_SLOT", msg: String) {
+        if (BuildConfig.DEBUG) Log.i(tag, msg)
     }
 }
