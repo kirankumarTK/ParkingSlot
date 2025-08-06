@@ -20,7 +20,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.parkingslot.R
-import com.example.parkingslot.modules.loginFlow.LoginMainActivity
+import com.example.parkingslot.LoginMainActivity
 import com.example.parkingslot.ui.component.AppBackground
 import com.example.parkingslot.ui.theme.ParkingSlotTheme
 import dagger.hilt.android.AndroidEntryPoint

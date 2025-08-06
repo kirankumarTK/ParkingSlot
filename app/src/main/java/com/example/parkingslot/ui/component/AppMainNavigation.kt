@@ -9,32 +9,23 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.parkingslot.modules.loginFlow.ValidateViewModel
-import com.example.parkingslot.modules.loginFlow.login.Login
-import com.example.parkingslot.modules.loginFlow.registration.UserRegistration
+import com.example.parkingslot.modules.app_flow.dashboard.Dashboard
 
 @Composable
-fun AppNavigation(
+fun AppMainNavigation(
     innerPadding: PaddingValues,
     navController: NavHostController,
-    sharedLoginViewModel: ValidateViewModel
 ) {
-
     NavHost(
         navController = navController,
-        startDestination = "Login",
+        startDestination = "dashboard",
         enterTransition = { slideInHorizontally { fullWidth -> fullWidth } + fadeIn() },
         exitTransition = { slideOutHorizontally { fullWidth -> -fullWidth } + fadeOut() },
         popEnterTransition = { slideInHorizontally { fullWidth -> -fullWidth } + fadeIn() },
         popExitTransition = { slideOutHorizontally { fullWidth -> fullWidth } + fadeOut() }) {
-        composable(route = "login") {
-            Login(navController, sharedLoginViewModel)
 
+        composable("dashboard") {
+            Dashboard()
         }
-        composable("registration") {
-            UserRegistration(navController, sharedLoginViewModel,innerPadding)
-        }
-
     }
 }
-

@@ -49,6 +49,7 @@ internal fun Login(navController: NavHostController, shareValidateViewModel: Val
     val password by loginViewModel.passwordStateFlow.collectAsState()
     val passwordError by loginViewModel.passwordErrorStateFlow.collectAsState()
 
+    loginViewModel.checkUserAlreadyLoggedIn(shareValidateViewModel)
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
