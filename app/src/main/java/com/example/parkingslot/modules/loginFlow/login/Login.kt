@@ -36,7 +36,7 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.parkingslot.R
 import com.example.parkingslot.modules.loginFlow.ValidateViewModel
-import com.example.parkingslot.ui.component.AppBackground
+import com.example.parkingslot.ui.component.appBackground
 import com.example.parkingslot.ui.component.DefaultEditTextField
 import com.example.parkingslot.ui.component.PasswordEditTextField
 
@@ -53,7 +53,7 @@ internal fun Login(navController: NavHostController, shareValidateViewModel: Val
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .background(AppBackground())
+            .background(appBackground())
             .padding(10.dp)
             .fillMaxSize()
     ) {

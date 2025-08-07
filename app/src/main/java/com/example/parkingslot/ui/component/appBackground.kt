@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.Brush
 
 
 @Composable
-internal fun AppBackground(): Brush {
+internal fun appBackground(): Brush {
     return Brush.verticalGradient(
         colors = listOf(
             MaterialTheme.colorScheme.primaryContainer, MaterialTheme.colorScheme.tertiaryContainer

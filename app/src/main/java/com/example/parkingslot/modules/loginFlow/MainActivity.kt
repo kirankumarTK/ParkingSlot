@@ -1,4 +1,4 @@
-package com.example.parkingslot
+package com.example.parkingslot.modules.loginFlow
 
 import android.content.Intent
 import android.os.Bundle
@@ -29,8 +29,8 @@ import androidx.compose.ui.zIndex
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.parkingslot.R
 import com.example.parkingslot.modules.app_flow.DashboardActivity
-import com.example.parkingslot.modules.loginFlow.ValidateViewModel
 import com.example.parkingslot.ui.component.AppNavigation
 import com.example.parkingslot.ui.component.AppToolBar
 import com.example.parkingslot.ui.theme.ParkingSlotTheme
@@ -110,7 +110,7 @@ class LoginMainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-private fun LoadingOverlay(isLoading: Boolean = true) {
+internal fun LoadingOverlay(isLoading: Boolean = true) {
     if (isLoading) {
         Box(
             modifier = Modifier
