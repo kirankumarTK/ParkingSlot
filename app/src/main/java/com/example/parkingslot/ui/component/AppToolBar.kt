@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.parkingslot.R
+import com.example.parkingslot.utils.capitalizeFirstLetter
 
 @Composable
 internal fun AppToolBar(
@@ -63,7 +64,7 @@ internal fun AppToolBar(
                 modifier = Modifier
                     .padding(start = 20.dp)
                     .fillMaxWidth(),
-                text = title.take(50),
+                text = title.take(50).capitalizeFirstLetter(),
                 style = MaterialTheme.typography.titleLarge,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,

@@ -31,6 +31,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.parkingslot.modules.app_flow.DashboardActivity
 import com.example.parkingslot.modules.loginFlow.ValidateViewModel
+
 import com.example.parkingslot.ui.component.AppNavigation
 import com.example.parkingslot.ui.component.AppToolBar
 import com.example.parkingslot.ui.theme.ParkingSlotTheme
@@ -110,7 +111,7 @@ class LoginMainActivity : ComponentActivity() {
 
 @Preview
 @Composable
-private fun LoadingOverlay(isLoading: Boolean = true) {
+internal fun LoadingOverlay(isLoading: Boolean = true) {
     if (isLoading) {
         Box(
             modifier = Modifier

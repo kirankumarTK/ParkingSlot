@@ -9,12 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.parkingslot.modules.app_flow.SharedDashBoardViewModel
 import com.example.parkingslot.modules.app_flow.dashboard.Dashboard
 
 @Composable
 fun AppMainNavigation(
     innerPadding: PaddingValues,
     navController: NavHostController,
+    sharedDashBoardViewModel: SharedDashBoardViewModel,
 ) {
     NavHost(
         navController = navController,
@@ -25,7 +27,7 @@ fun AppMainNavigation(
         popExitTransition = { slideOutHorizontally { fullWidth -> fullWidth } + fadeOut() }) {
 
         composable("dashboard") {
-            Dashboard()
+            Dashboard(innerPadding,sharedDashBoardViewModel)
         }
     }
 }

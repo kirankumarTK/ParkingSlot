@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.parkingslot.modules.loginFlow.ValidateViewModel
-import com.example.parkingslot.ui.component.AppBackground
+import com.example.parkingslot.ui.component.appBackground
 import com.example.parkingslot.ui.component.DefaultEditTextField
 import com.example.parkingslot.ui.component.DropdownBox
 import com.example.parkingslot.ui.component.PasswordEditTextField
@@ -68,7 +68,7 @@ internal fun UserRegistration(
         modifier = Modifier
             .padding(innerPadding)
             .fillMaxSize()
-            .background(AppBackground())
+            .background(appBackground())
     ) {
 
         Card(
