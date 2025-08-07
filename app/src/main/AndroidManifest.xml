@@ -27,13 +27,14 @@
         </activity>
 
         <activity
-            android:name=".modules.loginFlow.LoginMainActivity"
+            android:name=".LoginMainActivity"
             android:exported="false"
             android:theme="@style/Theme.ParkingSlot" />
         <activity
             android:name=".modules.app_flow.DashboardActivity"
             android:exported="false"
             android:theme="@style/Theme.ParkingSlot" />
+
 
     </application>
 

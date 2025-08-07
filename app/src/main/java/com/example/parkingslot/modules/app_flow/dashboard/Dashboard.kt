@@ -33,9 +33,9 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import com.example.parkingslot.LoadingOverlay
 import com.example.parkingslot.R
 import com.example.parkingslot.modules.app_flow.SharedDashBoardViewModel
-import com.example.parkingslot.modules.loginFlow.LoadingOverlay
 import com.example.parkingslot.ui.component.appBackground
 import com.example.parkingslot.utils.capitalizeFirstLetter
 
@@ -166,7 +166,7 @@ private fun ShowAvailableParkingSlot(list: List<Map.Entry<Int, ParkingSlot>>) {
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.1f))
                 .padding(10.dp),
-            columns = GridCells.Fixed(2),
+            columns = GridCells.Adaptive(120.dp),
         ) {
             items(list.size) { index ->
                 ParkingSlotView(list[index].value, list[index].key)
