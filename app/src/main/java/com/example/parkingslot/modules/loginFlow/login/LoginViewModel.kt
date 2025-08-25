@@ -103,11 +103,13 @@ class LoginViewModel @Inject constructor(
 
     fun checkUserAlreadyLoggedIn(validateViewModel: ValidateViewModel) {
         appPreference.getString(DOCUMENT_ID, "").let {
-            var documentID = it
+            val documentID = it
             if (documentID != null && documentID.isNotEmpty()) {
                 // move to nxt module
                 validateViewModel.moveToDashboardLiveData.value = true
             }
         }
     }
+
+
 }

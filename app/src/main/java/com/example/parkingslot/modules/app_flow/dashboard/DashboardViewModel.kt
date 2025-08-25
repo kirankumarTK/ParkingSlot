@@ -17,13 +17,14 @@ class DashboardViewModel @Inject constructor(
     private val firestore: FirebaseFirestore, private val loggerUtils: LoggerUtils
 ) : ViewModel() {
     internal val parkingTypeStateFlow = MutableStateFlow<Map<String, ParkingType>>(emptyMap())
-    internal val showLoadingStateFlow = MutableStateFlow<Boolean>(false)
+    internal val showLoadingStateFlow = MutableStateFlow(false)
     internal val parkingSlotStateFlow = MutableStateFlow<Map<Int, ParkingSlot>>(emptyMap())
 
     internal fun loadParkingTypeData(sharedDashBoardViewModel: SharedDashBoardViewModel) {
         viewModelScope.launch {
             fetchParkingType(firestore, loggerUtils, parkingTypeStateFlow, sharedDashBoardViewModel)
         }
+
     }
 
     internal fun loadSlotData(collectionType: String) {

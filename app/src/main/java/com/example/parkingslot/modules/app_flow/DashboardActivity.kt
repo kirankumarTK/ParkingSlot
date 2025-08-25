@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.parkingslot.LoadingOverlay
+import com.example.parkingslot.modules.loginFlow.LoadingOverlay
 import com.example.parkingslot.ui.component.AppMainNavigation
 import com.example.parkingslot.ui.theme.ParkingSlotTheme
 import com.example.parkingslot.utils.capitalizeFirstLetter

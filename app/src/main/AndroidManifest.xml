@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name=".LoginMainActivity"
+            android:name=".modules.loginFlow.LoginMainActivity"
             android:exported="false"
             android:theme="@style/Theme.ParkingSlot" />
         <activity

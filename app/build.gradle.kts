@@ -18,7 +18,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.parkingslot.modules"
     }
 
     buildTypes {
@@ -65,15 +65,22 @@ dependencies {
     implementation(libs.androidx.security.crypto)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.mockito.core)
+    implementation(libs.mockito.kotlin)
+    implementation(libs.espresso.core)
+    implementation(libs.kotlinx.coroutines.test)
+    implementation(libs.hilt.android.testing)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    kspAndroidTest (libs.hilt.compiler)
 
 
 }

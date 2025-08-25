@@ -1,17 +1,16 @@
 [versions]
-agp = "8.10.1"
+agp = "8.12.1"
 kotlin = "2.1.0"
 googleservice = "4.4.3"
 coreKtx = "1.16.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+junitVersion = "1.3.0"
 lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2025.07.00"
 firebaseAnalytics = "23.0.0"
-firebaseBom = "34.0.0"
-navigationCompose = "2.9.2"
+firebaseBom = "34.1.0"
+navigationCompose = "2.9.3"
 appcompat = "1.7.1"
 fragmentKtx = "1.8.8"
 comGoogleDaggerHiltAndroidGradlePlugin = "2.56.2"
@@ -21,9 +20,15 @@ hiltNavigationCompose = "1.3.0-alpha02"
 firebaseAnalyticsKtx = "22.5.0"
 firebaseConfigKtx = "22.1.2"
 materialIconsExtended = "1.7.8"
-securityCrypto = "1.1.0-alpha07"
+securityCrypto = "1.1.0"
 datastorePreferences = "1.2.0-alpha02"
 firebaseAuthKtx = "23.2.1"
+mockitoCore = "5.18.0"
+mockitoKotlin = "5.4.0"
+espressoCoreVersion = "3.7.0"
+kotlinxCoroutinesTest = "1.10.2"
+hiltAndroidTesting = "2.56.2"
+hiltCompiler = "2.56.2"
 
 
 
@@ -31,7 +36,6 @@ firebaseAuthKtx = "23.2.1"
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
-androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -57,6 +61,12 @@ androidx-material-icons-extended = { group = "androidx.compose.material", name =
 androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
 androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastorePreferences" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+mockito-core = { group = "org.mockito", name = "mockito-core", version.ref = "mockitoCore" }
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCoreVersion" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hiltAndroidTesting" }
+hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltCompiler" }
 
 
 [plugins]

@@ -28,6 +28,7 @@ class ValidateViewModel @Inject constructor() : ViewModel() {
 
     internal val validateEmail: (String) -> Boolean = {
         it.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(it).matches()
+
     }
 
     internal val validatePwd: (String) -> Boolean = {

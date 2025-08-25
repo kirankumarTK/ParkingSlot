@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -33,7 +35,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
-import com.example.parkingslot.LoadingOverlay
+import com.example.parkingslot.modules.loginFlow.LoadingOverlay
 import com.example.parkingslot.R
 import com.example.parkingslot.modules.app_flow.SharedDashBoardViewModel
 import com.example.parkingslot.ui.component.appBackground
@@ -49,6 +51,7 @@ fun Dashboard(innerPadding: PaddingValues, sharedDashBoardViewModel: SharedDashB
 
     val parkingSlotMap by dashBoardViewModel.parkingSlotStateFlow.collectAsState()
     val parkingSlot = parkingSlotMap.entries.toList()
+    val gridState = rememberLazyGridState() // used to remember scroll position
 
     LaunchedEffect(Unit) {
         dashBoardViewModel.loadParkingTypeData(sharedDashBoardViewModel)
@@ -63,6 +66,12 @@ fun Dashboard(innerPadding: PaddingValues, sharedDashBoardViewModel: SharedDashB
         }
 
     }
+
+    // Scroll to top when new parkingSlotMap is emitted
+    LaunchedEffect(parkingSlotMap) {
+        gridState.scrollToItem(0)
+    }
+
 
     Column(
         modifier = Modifier
@@ -90,7 +99,7 @@ fun Dashboard(innerPadding: PaddingValues, sharedDashBoardViewModel: SharedDashB
             }
         }
 
-        ShowAvailableParkingSlot(parkingSlot)
+        ShowAvailableParkingSlot(parkingSlot, gridState)
 
     }
 
@@ -150,7 +159,10 @@ private fun DashboardItemView(
 }
 
 @Composable
-private fun ShowAvailableParkingSlot(list: List<Map.Entry<Int, ParkingSlot>>) {
+private fun ShowAvailableParkingSlot(
+    list: List<Map.Entry<Int, ParkingSlot>>,
+    gridState: LazyGridState
+) {
 
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
@@ -162,6 +174,7 @@ private fun ShowAvailableParkingSlot(list: List<Map.Entry<Int, ParkingSlot>>) {
 
         if (false) LoadingOverlay(true)
         else LazyVerticalGrid(
+            state = gridState,
             modifier = Modifier
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.1f))
